@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation RED: Respire Et Dirige</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f8f9fa; }
+        header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #ff9500 0%, #007acc 100%); color: white; margin-bottom: 40px; border-radius: 12px; }
+        h1 { font-size: 2.5em; font-weight: 700; margin-bottom: 10px; }
+        .accroche { font-size: 1.3em; font-weight: 300; opacity: 0.95; }
+        .logo { width: 120px; height: auto; margin: 0 auto 20px; display: block; }
+        section { margin-bottom: 40px; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h2 { color: #007acc; font-size: 1.8em; margin-bottom: 20px; border-bottom: 3px solid #ff9500; padding-bottom: 10px; }
+        .accordion { list-style: none; }
+        .accordion-item { border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        .accordion-header { background: #f0f8ff; padding: 20px; cursor: pointer; font-weight: 700; color: #007acc; transition: background 0.3s; }
+        .accordion-header:hover { background: #e3f2fd; }
+        .accordion-content { padding: 0 20px 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .accordion-item.active .accordion-content { max-height: 500px; padding: 20px; }
+        .infos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .info-card { background: #e3f2fd; padding: 20px; border-radius: 8px; text-align: center; }
+        .online-note { background: #fff3cd; padding: 20px; border-radius: 8px; text-align: center; font-weight: 500; border-left: 5px solid #ffc107; }
+        .downloads { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .download-btn { background: #ff9500; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .download-btn:hover { background: #e68900; }
+        .visuel { text-align: center; margin: 20px 0; }
+        .visuel img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,122,204,0.2); }
+        footer { background: #333; color: white; padding: 30px 20px; text-align: center; border-radius: 12px; margin-top: 40px; }
+        .contact { font-size: 1.1em; margin-bottom: 15px; }
+        .inclusion { font-size: 0.95em; opacity: 0.9; }
+        @media (max-width: 768px) { h1 { font-size: 2em; } body { padding: 10px; } section { padding: 20px; } }
+        /* Accessibilité : contraste élevé, focus visible */
+        a:focus, button:focus { outline: 3px solid #ff9500; outline-offset: 2px; }
+        /* RSE : faible empreinte carbone, pas de JS lourd, responsive */
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo-organisme.png" alt="Logo de l'organisme de formation" class="logo" />
+        <h1>Formation RED: Respire Et Dirige</h1>
+        <p class="accroche">Prenez des décisions claires sous pression, libérez votre leadership résilient. Formation certifiante en visioconférence.</p>
+    </header>
+
+    <section id="infos">
+        <h2>Informations pratiques</h2>
+        <div class="infos">
+            <div class="info-card">
+                <h3>Date</h3>
+                <p>18 Mars 2026</p>
+            </div>
+            <div class="info-card">
+                <h3>Modalités</h3>
+                <p>En ligne – visioconférence Zoom</p>
+            </div>
+            <div class="info-card">
+                <h3>Durée</h3>
+                <p>2 jours (9h-17h)</p>
+            </div>
+        </div>
+        <div class="online-note">
+            Formation 100% en ligne uniquement. Pas de déplacement nécessaire. Lien Zoom fourni à l'inscription.
+        </div>
+    </section>
+
+    <section id="programme">
+        <h2>Programme détaillé</h2>
+        <ul class="accordion">
+            <li class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">Module 1: Identifier et comprendre vos 5 freins décisionnels</div>
+                <div class="accordion-content">
+                    <p>Mise en situation, diagnostic personnel, origines neuro-psycho, signaux d'alerte. Exercice de partage en binôme.</p>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">Module 2: Techniques de respiration et recentrage</div>
+                <div class="accordion-content">
+                    <p>Respiration diaphragmatique, cohérence cardiaque, ancrage physique pour désamorcer la surcharge émotionnelle.</p>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">Module 3: Outils décisionnels adaptés à chaque frein</div>
+                <div class="accordion-content">
+                    <p>Stratégies personnalisées : matrice décisionnelle, time-boxing, rituels anti-procrastination.</p>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">Module 4: Mise en pratique et simulations sous pression</div>
+                <div class="accordion-content">
+                    <p>Rôles plays, décisions en temps réel, feedback groupe. Intégration immédiate des outils.</p>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">Module 5: Plan d'action personnel et suivi</div>
+                <div class="accordion-content">
+                    <p>Élaboration de votre kit RED personnalisé. Suivi post-formation à 1 mois.</p>
+                </div>
+            </li>
+        </ul>
+        <div class="visuel">
+            <img src="programme-de-formation.jpeg" alt="Programme détaillé de la formation RED: Respire Et Dirige" />
+        </div>
+    </section>
+
+    <section id="telechargements">
+        <h2>Documents à télécharger</h2>
+        <div class="downloads">
+            <a href="programme-de-formation.pdf" class="download-btn" download>📄 Programme complet (PDF)</a>
+            <a href="livret-stagiaire-les-5-freins.pdf" class="download-btn" download>📘 Livret stagiaire (PDF)</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact">
+            Formateurs : Elise Pérard et Cyril Montero<br>
+            Contact : elise@exemple.com | cyril@exemple.com | 01 23 45 67 89
+        </div>
+        <div class="inclusion">
+            <a href="https://politique-inclusion-exemple.com" style="color: #ff9500;">Politique d'inclusion et gestion du handicap</a><br>
+            Formation accessible à tous (sous-titres Zoom disponibles, supports adaptés). Engagement RSE : 100% digital, zéro papier.
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const content = item.querySelector('.accordion-content');
+            item.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
